@@ -1,0 +1,73 @@
+# Make sure you are within your $HOME folder
+pwd
+
+# or
+
+cd $HOME
+
+# Create working directory within $HOME directory
+mkdir demo
+
+# Open "demo" directory
+cd demo
+
+# Download mtDNA reference sequence (16K)
+wget http://www.bx.psu.edu/~boris/attach/mtDNA.fasta
+
+# Download sequencing reads (43M each)
+wget http://www.bx.psu.edu/~boris/attach/M236C4-ch_1.fq
+wget http://www.bx.psu.edu/~boris/attach/M236C4-ch_2.fq
+
+
+# It should give an error
+bwa index mtDNA.fasta
+
+# Make tools available system wide temporarily
+export PATH=/hpcudd/Hpcshare/demo1/bin/:$PATH
+
+# Check changes
+which bwa
+
+# Index mtDNA sequence for alignment
+bwa index mtDNA.fasta
+
+
+# Align sequencing reads to reference
+#bwa mem  mtDNA.fasta M236C4-ch_1.fq M236C4-ch_2.fq > demo.sam 
+
+# Create a file sge_example.sh
+vi sge_example.sh
+
+# Press "i" for start editing mode
+# Copy and paste the content below
+# Press ESC to exit editing mode
+# Save and quit with "ZZ" (double capital z)
+
+-----------------------------------------------------------------
+#! /bin/bash
+
+#$ -N bwa
+#$ -M brebolledo@udd.cl
+#$ -m bes
+#$ -o /hpcudd/home/boris/demo/
+#$ -e /hpcudd/home/boris/demo/
+#$ -cwd
+#$ -q cpu.q
+
+export PATH=/hpcudd/Hpcshare/demo1/bin/:$PATH
+
+bwa mem  mtDNA.fasta M236C4-ch_1.fq M236C4-ch_2.fq > demo.sam
+-----------------------------------------------------------------
+
+
+
+# Send demo.sam to jano
+# First, log into Jano
+ssh boris@200.54.225.60 
+# Then, copy to jano
+scp -P 8282 boris@192.168.20.2:/hpcudd/home/boris/demo/demo.sam .
+
+# Copy demo.sam to local computer
+scp boris@200.54.225.60:/home/boris/demo.sam .
+
+
