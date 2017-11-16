@@ -8,7 +8,7 @@
 
 refdata="/hpcudd/ICIM/shared/genomes/Homo_sapiens/Ensembl/GRCh37"
 genome="${refdata}/Sequence/WholeGenomeFasta/genome.fa"
-targets="exons_${2}.bed"
+targets="${refdata}/Annotation/Genes/exons_${2}.bed"
 
 bamlist=${1}
 output=${2}
