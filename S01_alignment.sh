@@ -1,6 +1,6 @@
 #! /bin/bash
 
-#$ -N bwa
+#$ -N bamprep
 #$ -M brebolledo@udd.cl
 #$ -m bes
 #$ -o /hpcudd/home/boris/storage/data/logs
@@ -33,8 +33,10 @@ while getopts '1:2:i:l:' ARGS; do
           exit 1
           ;;
     esac
-done    
+done
+    
 shift "$(($OPTIND - 1))"
+mkdir -p ${RGID}_tmpdir
 
 bwa mem                                                       \
     -t 8                                                      \
@@ -45,10 +47,9 @@ bwa mem                                                       \
     ${read2}| samtools view -@ 2 -Sb -o ${RGID}_tmpdir/${RGID}.bam - 2>/dev/null
 
 exit_bwa=$?
+cd ${RGID}_tmpdir 
 
-mkdir -p ${RGID}_tmpdir && cd ${RGID}_tmpdir 
-
-if [ $exit_bwa -eq 0 && -s ${RGID}.bam  ]
+if [ $exit_bwa -eq 0 && -s ${RGID}.bam ]
 then
 	picard SortSam                   \
         I=${RGID}.bam                \
