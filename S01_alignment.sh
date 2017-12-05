@@ -49,7 +49,7 @@ bwa mem                                                       \
 exit_bwa=$?
 cd ${RGID}_tmpdir 
 
-if [ $exit_bwa -eq 0 && -s ${RGID}.bam ]
+if [ $exit_bwa -eq 0 ] && [ -s ${RGID}.bam ]
 then
 	picard SortSam                   \
         I=${RGID}.bam                \
@@ -64,7 +64,7 @@ then
 fi
 
 
-if [ $exit_sort -eq 0 && -s sorted.${RGID}.bam ]
+if [ $exit_sort -eq 0 ] && [ -s sorted.${RGID}.bam ]
 then
     rm -f ${RGID}.bam
 
@@ -83,7 +83,7 @@ then
 fi
 
 
-if [ $exit_mkd -eq 0 && -s markDups.sorted.${RGID}.bam ]
+if [ $exit_mkd -eq 0 ] && [ -s markDups.sorted.${RGID}.bam ]
 then
     rm -f sorted.${RGID}.bam
     rm -fr tempdir
