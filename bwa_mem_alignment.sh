@@ -21,4 +21,4 @@ bwa mem                                                       \
     -R "@RG\tID:${RGID}\tLB:${RGLB}\tSM:${RGID}\tPL:ILLUMINA" \
     ${index}                                                  \
     ${read1}                                                  \
-    ${read2}| samtools view -@ 2 -Sb -o ${RGID}.bam - 2>/dev/null 
+    ${read2}| samtools view -@ 2 -Sb -o ${RGID}.bam - 2>/dev/null
