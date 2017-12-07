@@ -11,12 +11,21 @@ set -e
 set -u
 set -o pipefail
 
-genomes="/hpcudd/ICIM/shared/genomes"
-index="${genomes}/Homo_sapiens/Ensembl/GRCh37/Sequence/BWAIndex/genome.fa"
+if [ $HOSTNAME == sofia.udd.cl ]
+then
+    genomes="/hpcudd/ICIM/shared/genomes"
+elif [$HOSTNAME == mendel ]
+then
+    genomes="/storage/shared/references"
+else
+    echo "Unrecognized host $HOSTNAME"
+    echo "can't locate genome references"
+    exit 1
+fi
 
-while getopts '1:2:i:l:' ARGS; do
+while getopts '1:2:i:l:h' ARGS; do
 	case "$ARGS" in
-		1)
+		    1)
           read1="$OPTARG"
           ;;
         2)
@@ -28,6 +37,10 @@ while getopts '1:2:i:l:' ARGS; do
         l)
           RGLB="$OPTARG"
           ;;
+        h)
+          echo "script usage: $(basename $0) [-1 read1.fq] [-2 read2.fq] [-i readgroup ID] [-l readgroup LIB]" >&2
+          exit 0
+          ;;
         ?)
           echo "script usage: $(basename $0) [-1 read1.fq] [-2 read2.fq] [-i readgroup ID] [-l readgroup LIB]" >&2
           exit 1
@@ -37,6 +50,8 @@ done
     
 shift "$(($OPTIND - 1))"
 mkdir -p ${RGID}_tmpdir
+index="${genomes}/Homo_sapiens/Ensembl/GRCh37/Sequence/BWAIndex/genome.fa"
+
 
 bwa mem                                                       \
     -t 8                                                      \
