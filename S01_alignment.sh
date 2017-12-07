@@ -11,10 +11,10 @@ set -e
 set -u
 set -o pipefail
 
-if [ $HOSTNAME == sofia.udd.cl ]
+if [ $HOSTNAME == 'sofia.udd.cl' ]
 then
     genomes="/hpcudd/ICIM/shared/genomes"
-elif [$HOSTNAME == mendel ]
+elif [$HOSTNAME == 'mendel' ]
 then
     genomes="/storage/shared/references"
 else
