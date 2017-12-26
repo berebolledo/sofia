@@ -25,7 +25,7 @@ fi
 
 while getopts '1:2:i:l:h' ARGS; do
 	case "$ARGS" in
-		    1)
+        1)
           read1="$OPTARG"
           ;;
         2)
