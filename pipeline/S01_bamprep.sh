@@ -122,7 +122,7 @@ then
     exit_bqsr1=$?
 fi
 
-if [ $exit_bqsr -eq 0 ] && [ -s markDups.sorted.${RGID}_ALLchr_recal_data.table ]
+if [ $exit_bqsr1 -eq 0 ] && [ -s markDups.sorted.${RGID}_ALLchr_recal_data.table ]
 then
     gatk -Xms4g -Xmx8g                                        \
         -T PrintReads                                         \
