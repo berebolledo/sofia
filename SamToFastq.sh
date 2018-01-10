@@ -1,8 +1,8 @@
 #! /bin/bash
 
-#$ -N freebayes
+#$ -N Bam2Fq
 #$ -M brebolledo@udd.cl
-#$ -m bes
+#$ -m beas
 #$ -o /hpcudd/home/boris/storage/data/logs
 #$ -e /hpcudd/home/boris/storage/data/logs
 

@@ -19,5 +19,5 @@ gatk -Xms4g -Xmx8g \
     -R $genome \
     -I $input \
     -BQSR ${input}_${chrom}_recal_data.table \
-    -o bqr_${input}
+    -o ${input}_bqsr.bam
 
