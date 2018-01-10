@@ -134,7 +134,7 @@ then
     exit_bqsr2=$?
 fi
 
-if [ $exit_bqsr1 -eq 0 ] && [ -s bqr_markDups.sorted.${RGID}.bam ]
+if [ $exit_bqsr2 -eq 0 ] && [ -s bqr_markDups.sorted.${RGID}.bam ]
 then
     rm -f markDups.sorted.${RGID}.bam
     rm -f markDups.sorted.${RGID}.bai
