@@ -30,7 +30,7 @@ refdata="${genomes}/Homo_sapiens/Ensembl/GRCh37"
 genome="${refdata}/Sequence/WholeGenomeFasta/genome.fa"
 
 specs="/hpcudd/ICIM/shared/GenomeWideSNP_6/specs/"
-annotation="${specs}/GenomeWideSNP_6.na30.annot.hg19.csv.pickle.gz"
+annotation="${specs}/GenomeWideSNP_6.na30.annot.hg19.csv.pickle"
 
 
 while getopts 'c:a:v:h' ARGS; do
