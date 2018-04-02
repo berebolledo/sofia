@@ -38,7 +38,7 @@ while getopts 'c:a:v:h' ARGS; do
 		c)
           calls="$OPTARG"
           ;;
-        i)
+        a)
           arrayid="$OPTARG"
           ;;
         v)
