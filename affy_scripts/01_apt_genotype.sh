@@ -39,6 +39,7 @@ lib="/hpcudd/ICIM/shared/GenomeWideSNP_6/libfiles"
 if [ ${first_line} != "cel_files" ]
 then
     cat <(echo "cel_files") ${cel_files} > ${cel_files}.tmp
+    cel_files=${cel_files}.tmp
 fi
 
 apt-probeset-genotype                          \
