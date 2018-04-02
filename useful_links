@@ -1,0 +1,14 @@
+=======================================================================================================================================================================
+GATK hardfilters
+================
+
+https://gatkforums.broadinstitute.org/gatk/discussion/2806/howto-apply-hard-filters-to-a-call-set
+https://software.broadinstitute.org/gatk/documentation/tooldocs/3.8-0/org_broadinstitute_gatk_tools_walkers_variantrecalibration_VariantRecalibrator.php
+https://gatkforums.broadinstitute.org/gatk/discussion/10057/heterozygous-x-variants-observed-in-male-samples-called-by-haplotypecaller-in-normal-vcf-mode
+
+=======================================================================================================================================================================
+Affymetrix Chips
+================
+https://www.thermofisher.com/cl/es/home/life-science/microarray-analysis/microarray-analysis-partners-programs/affymetrix-developers-network/affymetrix-power-tools.html
+https://downloads.thermofisher.com/Affymetrix_Softwares/apt-1.21.0-x86_64-intel-linux.zip
+http://media.affymetrix.com/support/developer/powertools/changelog/index.html
