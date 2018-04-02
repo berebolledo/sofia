@@ -1,17 +1,56 @@
 #! /bin/bash
 
-#$ -N freebayes
+#$ -N freeb-MT
 #$ -M brebolledo@udd.cl
-#$ -m bes
+#$ -m beas
 #$ -o /hpcudd/home/boris/storage/data/logs
 #$ -e /hpcudd/home/boris/storage/data/logs
 
-refdata="/hpcudd/ICIM/shared/genomes/Homo_sapiens/Ensembl/GRCh37"
-genome="${refdata}/Sequence/WholeGenomeFasta/genome.fa"
-targets="exons_${2}.bed"
+set -e
+set -u
+set -o pipefail
 
-bamlist=${1}
-output=${2}
+
+if [ $HOSTNAME == 'sofia.udd.cl' ] || [[ $HOSTNAME == compute-1-*.local ]]
+then
+    genomes="/hpcudd/ICIM/shared/genomes"
+    bundle="/hpcudd/ICIM/shared/gatk-bundle"
+elif [ $HOSTNAME == 'mendel' ]
+then
+    genomes="/storage/shared/references"
+    bundle="/storage/shared/gatk-bundle"
+else
+    echo "Unrecognized host $HOSTNAME"
+    echo "can't locate genome references"
+    exit 1
+fi
+
+while getopts 'b:t:o:h' ARGS; do
+    case "$ARGS" in
+        b)
+          bamlist="$OPTARG"
+          ;;
+        t)
+          targets="$OPTARG"
+          ;;
+        o)
+          output="$OPTARG"
+          ;;
+        h)
+          echo "script usage: $(basename $0) [-b bam.list] [-t targets.bed] [-o output]" >&2
+          exit 0
+          ;;
+        ?)
+          echo "script usage: $(basename $0) [-b bam.list] [-t targets.bed] [-o output]" >&2
+          exit 1
+          ;;
+    esac
+done
+    
+shift "$(($OPTIND - 1))"
+
+refdata="${genomes}/Homo_sapiens/Ensembl/GRCh37"
+genome="${refdata}/Sequence/WholeGenomeFasta/genome.fa"
 
 
 #   -m --min-mapping-quality Q
@@ -56,4 +95,4 @@ freebayes             \
     -G 2              \
     -L ${bamlist}     \
     -f ${genome}      \
-    -t ${targets} |bgzip -c > ${output}.vcf.gz
+    -t ${targets} > ${output}.vcf 
