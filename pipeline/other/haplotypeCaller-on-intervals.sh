@@ -48,7 +48,36 @@ done
 
 refdata="${genomes}/Homo_sapiens/Ensembl/GRCh37"
 genome="${refdata}/Sequence/WholeGenomeFasta/genome.fa"
-  
+intervals="${refdata}/Annotation/Intervals"
+
+padding="--interval_padding 100"
+
+if [ $target == 'auto-exons' ]
+then
+    interval=${intervals}/autosomes_exons.bed
+    
+elif [ $target == 'auto-whole' ]
+then
+    interval=${intervals}/autosomes.list
+
+elif [ $target == 'X-exons' ]
+then
+    interval=${intervals}/X_exons.bed
+
+elif [ $target == 'X-whole' ]
+then
+    interval="X"
+
+elif [ $target == 'male-exons' ] 
+then
+    interval=${intervals}/Y_exons.bed
+
+elif [ $target == 'male-XY' ]
+then
+    interval="-L X -L Y"
+
+
+    
 gatk -Xms4g -Xmx8g \
     -T HaplotypeCaller \
     -R $genome \
