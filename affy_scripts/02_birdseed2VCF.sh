@@ -35,7 +35,7 @@ annotation="${specs}/GenomeWideSNP_6.na30.annot.hg19.csv.pickle"
 
 while getopts 'c:a:v:h' ARGS; do
 	case "$ARGS" in
-		c)
+        c)
           calls="$OPTARG"
           ;;
         a)
