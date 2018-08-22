@@ -31,16 +31,13 @@ while getopts 'i:t:h' ARGS; do
 	case "$ARGS" in
         i)
           input="$OPTARG"
-          ;;
-        t)
-          target="$OPTARG"
           ;;  
         h)
-          echo "script usage: $(basename $0) [-i input.bam] [-t target]" >&2
+          echo "script usage: $(basename $0) [-i input.bam]" >&2
           exit 0
           ;;
         ?)
-          echo "script usage: $(basename $0) [-i input.bam] [-t target]" >&2
+          echo "script usage: $(basename $0) [-i input.bam]" >&2
           exit 1
           ;;
     esac
@@ -55,4 +52,4 @@ gatk -Xms4g -Xmx8g \
     -I $input \
     --genotyping_mode DISCOVERY \
     --emitRefConfidence GVCF \
-    -o ${input}.g.vcf
+    -o ${input}.22XY.g.vcf

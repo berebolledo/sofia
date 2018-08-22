@@ -1,0 +1,21 @@
+#! /bin/bash
+
+#$ -N annovar
+#$ -M brebolledo@udd.cl
+#$ -m beas
+#$ -o /hpcudd/home/boris/storage/data/logs
+#$ -e /hpcudd/home/boris/storage/data/logs
+
+input_vcf=${1}
+
+perl                                                                           \
+    /hpcudd/home/boris/storage/data/variantAnnotation/annovar/table_annovar.pl \
+    ${input_vcf}                                                               \
+    /hpcudd/home/boris/storage/data/variantAnnotation/annovar/humandb          \
+    -buildver hg19                                                             \
+    -remove                                                                    \
+    -out ${input_vcf}_annovar                                                  \
+    -protocol refGene,esp6500siv2_all,1000g2015aug_all,avsnp144,dbnsfp30a,clinvar_20160302,exac03,dbscsnv11,dbnsfp31a_interpro,rmsk,ensGene,knownGene \
+    -operation  g,f,f,f,f,f,f,f,f,r,g,g                                                                                                               \
+    -nastring .                                                                                                                                       \
+    -vcfinput

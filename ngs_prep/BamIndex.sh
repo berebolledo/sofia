@@ -12,9 +12,9 @@ inputbam=${1}
 picard BuildBamIndex             \
     I=${inputbam}                \
     VALIDATION_STRINGENCY=SILENT \
-    TMP_DIR=${outputname}_tmpdir \
+    TMP_DIR=${inputbam}_tmpdir \
     VERBOSITY=ERROR              \
     QUIET=true
 
 # Clean up
-rm -fr ${outputname}_tmpdir
+rm -fr ${inputbam}_tmpdir
