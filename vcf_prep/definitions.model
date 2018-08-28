@@ -1,0 +1,159 @@
+HaplotypeCaller
+{
+	QUAL [Log,Uniformization]
+	
+	GenotypeEntropyMean
+	GenotypeEntropySD
+
+	INFO.BasesToClosestVariant [Log,Uniformization]
+	INFO.EntropyLeft_7
+	INFO.EntropyCenter_7
+	INFO.EntropyRight_7
+	INFO.EntropyLeft_15
+	INFO.EntropyCenter_15
+	INFO.EntropyRight_15
+
+	INFO.BaseQRankSum [MeanNormalizationWithRange]
+	INFO.ClippingRankSum [MeanNormalizationWithRange]
+	INFO.DP [Log,Uniformization]
+	INFO.FS [Uniformization]
+	INFO.InbreedingCoeff [Uniformization]
+	INFO.LikelihoodRankSum [MeanNormalizationWithRange]
+	INFO.MQ [Uniformization]
+	INFO.MQRankSum [MeanNormalizationWithRange]
+	INFO.QD [Uniformization]
+	INFO.SOR [MeanNormalization]
+}
+
+UnifiedGenotyper.SNP
+{
+	QUAL [Log,Uniformization]
+
+	GenotypeEntropyMean
+	GenotypeEntropySD
+
+	INFO.BasesToClosestVariant [Log,Uniformization]
+	INFO.EntropyLeft_7
+	INFO.EntropyCenter_7
+	INFO.EntropyRight_7
+	INFO.EntropyLeft_15
+	INFO.EntropyCenter_15
+	INFO.EntropyRight_15
+
+	INFO.ABHet
+	INFO.ABHom
+	INFO.BaseQRankSum [MeanNormalizationWithRange]
+	INFO.DP [Log,Uniformization]
+	INFO.FS [Uniformization]
+	INFO.GC [Uniformization]
+	INFO.HRun [Uniformization]
+	INFO.HaplotypeScore [Uniformization]
+	INFO.InbreedingCoeff [Uniformization]
+	INFO.MQ [Uniformization]
+	INFO.MQRankSum [MeanNormalizationWithRange]
+	INFO.QD [Uniformization]
+	INFO.SOR [MeanNormalization]
+}
+
+UnifiedGenotyper.Indel
+{
+	QUAL [Log,Uniformization]
+
+	GenotypeEntropyMean
+	GenotypeEntropySD
+
+	INFO.BasesToClosestVariant [Log,Uniformization]
+	INFO.EntropyLeft_7
+	INFO.EntropyCenter_7
+	INFO.EntropyRight_7
+	INFO.EntropyLeft_15
+	INFO.EntropyCenter_15
+	INFO.EntropyRight_15
+
+	INFO.BaseQRankSum [MeanNormalizationWithRange]
+	INFO.DP [Log,Uniformization]
+	INFO.FS [Uniformization]
+	INFO.GC [Uniformization]
+	INFO.HRun [Uniformization]
+	INFO.InbreedingCoeff [Uniformization]
+	INFO.LikelihoodRankSum [MeanNormalizationWithRange]
+	INFO.MQ [Uniformization]
+	INFO.MQRankSum [MeanNormalizationWithRange]
+	INFO.QD [Uniformization]
+	INFO.SOR [MeanNormalization]
+}
+
+samtools.SNP
+{
+	QUAL [Log,Uniformization]
+	
+	GenotypeEntropyMean
+	GenotypeEntropySD
+
+	INFO.BasesToClosestVariant [Log,Uniformization]
+	INFO.EntropyLeft_7
+	INFO.EntropyCenter_7
+	INFO.EntropyRight_7
+	INFO.EntropyLeft_15
+	INFO.EntropyCenter_15
+	INFO.EntropyRight_15
+
+	INFO.DP [Log,Uniformization]
+	INFO.MQB
+	INFO.BQB
+	INFO.MQSB
+	INFO.SGB [MeanNormalizationWithRange]
+	INFO.ICB
+	INFO.HOB
+	INFO.MQ	[Uniformization]
+}
+
+samtools.Indel
+{
+	QUAL [Log,Uniformization]
+	
+	GenotypeEntropyMean
+	GenotypeEntropySD
+
+	INFO.BasesToClosestVariant [Log,Uniformization]
+	INFO.EntropyLeft_7
+	INFO.EntropyCenter_7
+	INFO.EntropyRight_7
+	INFO.EntropyLeft_15
+	INFO.EntropyCenter_15
+	INFO.EntropyRight_15
+
+	INFO.IDV [Uniformization]
+	INFO.IMF [Uniformization]
+	INFO.DP [Log,Uniformization]
+	INFO.MQSB
+	INFO.SGB [MeanNormalizationWithRange]
+	INFO.ICB
+	INFO.HOB
+	INFO.MQ	[Uniformization]
+}
+
+freebayes
+{
+	QUAL [Log,Uniformization]
+	
+	GenotypeEntropyMean
+	GenotypeEntropySD
+
+	INFO.BasesToClosestVariant [Log,Uniformization]
+	INFO.EntropyLeft_7
+	INFO.EntropyCenter_7
+	INFO.EntropyRight_7
+	INFO.EntropyLeft_15
+	INFO.EntropyCenter_15
+	INFO.EntropyRight_15
+
+	INFO.DP [log]
+	INFO.SRP [log,Uniformization]
+	INFO.SAP [log,Uniformization]
+	INFO.AB
+	INFO.ABP [log,Uniformization]
+	INFO.ODDS [log,MeanNormalizationWithRange]
+	INFO.MQM [Uniformization]
+	INFO.MQMR [Uniformization]
+}
