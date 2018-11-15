@@ -8,9 +8,11 @@
 
 input_vcf=${1}
 
+zcat ${input_vcf}|awk 'BEGIN{OFS="\t"}{if($0~/^#/) print $0; else print $1,$2,$3,$4,$5,$6,$7,$8}' > ${input_vcf}-minimal.vcf
+
 perl                                                                           \
     /hpcudd/home/boris/storage/data/variantAnnotation/annovar/table_annovar.pl \
-    ${input_vcf}                                                               \
+    ${input_vcf}-minimal.vcf                                                   \
     /hpcudd/home/boris/storage/data/variantAnnotation/annovar/humandb          \
     -buildver hg19                                                             \
     -remove                                                                    \
@@ -19,3 +21,11 @@ perl                                                                           \
     -operation  g,f,f,f,f,f,f,f,f,r,g,g                                                                                                               \
     -nastring .                                                                                                                                       \
     -vcfinput
+
+exitval=$?
+
+if [ $exitval -eq 0 ]
+then
+  rm -f ${input_vcf}-minimal.vcf
+fi
+
