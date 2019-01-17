@@ -74,42 +74,43 @@ cd ${RGID}_tmpdir
 
 if [ $exit_bwa -eq 0 ] && [ -s ${RGID}.bam ]
 then
-	picard SortSam                     \
+	picard SortSam               \
         I=${RGID}.bam                \
         O=sorted.${RGID}.bam         \
         SO=coordinate                \
         VALIDATION_STRINGENCY=SILENT \
         TMP_DIR=tmpdir               \
         VERBOSITY=ERROR              \
+        CREATE_INDEX=true            \
         QUIET=true
 
     exit_sort=$?
 fi
 
 
+#if [ $exit_sort -eq 0 ] && [ -s sorted.${RGID}.bam ]
+#then
+#    rm -f ${RGID}.bam
+#
+#    picard MarkDuplicates              \
+#        I=sorted.${RGID}.bam           \
+#        O=markDups.sorted.${RGID}.bam  \
+#        M=${RGID}.metrics.txt          \
+#        ASO=coordinate                 \
+#        VALIDATION_STRINGENCY=SILENT   \
+#        TMP_DIR=tmpdir                 \
+#        VERBOSITY=ERROR                \
+#        QUIET=true                     \
+#        CREATE_INDEX=true
+#
+#    exit_mkd=$?
+#fi
+
+
 if [ $exit_sort -eq 0 ] && [ -s sorted.${RGID}.bam ]
 then
-    rm -f ${RGID}.bam
-
-    picard MarkDuplicates              \
-        I=sorted.${RGID}.bam           \
-        O=markDups.sorted.${RGID}.bam  \
-        M=${RGID}.metrics.txt          \
-        ASO=coordinate                 \
-        VALIDATION_STRINGENCY=SILENT   \
-        TMP_DIR=tmpdir                 \
-        VERBOSITY=ERROR                \
-        QUIET=true                     \
-        CREATE_INDEX=true
-
-    exit_mkd=$?
-fi
-
-
-if [ $exit_mkd -eq 0 ] && [ -s markDups.sorted.${RGID}.bam ]
-then
-    rm -f sorted.${RGID}.bam
-    rm -fr tmpdir
+    mv sorted.${RGID}.bam markDups.sorted.${RGID}.bam
+    mv sorted.${RGID}.bai markDups.sorted.${RGID}.bai
 
     gatk -Xms4g -Xmx8g                 \
         -T BaseRecalibrator            \
@@ -148,16 +149,3 @@ then
     rm -f bqsr_markDups.sorted.${RGID}.bam
     rm -f bqsr_markDups.sorted.${RGID}.bai
 fi
-
-
-#if [ $exit_bqsr2 -eq 0 ] && [ -s bqsr_markDups.sorted.${RGID}.bam ]
-#then
-#    rm -f markDups.sorted.${RGID}.bam
-#    rm -f markDups.sorted.${RGID}.bai
-#fi
-
-
-
-
-
-
