@@ -8,3 +8,4 @@
 
 ref="/hpcudd/ICIM/shared/genomes/Homo_sapiens/Ensembl/GRCh37/Sequence/WholeGenomeFasta/genome.fa"
 samtools view -b ${1}|bamleftalign -f ${ref}|samtools view -b - > left-aligned.${1}
+samtools index left-aligned.${1}
