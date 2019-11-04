@@ -129,7 +129,7 @@ then
         -R $genome                                            \
         -I markDups.sorted.${RGID}.bam                        \
         -BQSR markDups.sorted.${RGID}_ALLchr_recal_data.table \
-        -o bqsr_markDups.sorted.${RGID}.bam
+        -o bqsr.markDups.sorted.${RGID}.bam
 
     exit_bqsr2=$?
 fi
@@ -138,4 +138,6 @@ if [ $exit_bqsr2 -eq 0 ] && [ -s bqsr_markDups.sorted.${RGID}.bam ]
 then
     rm -f markDups.sorted.${RGID}.bam
     rm -f markDups.sorted.${RGID}.bai
+    samtools view -b bqsr_markDups.sorted.${RGID}.bam|\
+    bamleftalign -f ${genome}|samtools view -b - > left-aligned.
 fi
