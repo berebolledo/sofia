@@ -134,18 +134,19 @@ then
     exit_bqsr2=$?
 fi
 
-if [ $exit_bqsr2 -eq 0 ] && [ -s bqsr_markDups.sorted.${RGID}.bam ]
+if [ $exit_bqsr2 -eq 0 ] && [ -s bqsr.markDups.sorted.${RGID}.bam ]
+#if [ -s bqsr.markDups.sorted.${RGID}.bam ]
 then
     rm -f markDups.sorted.${RGID}.bam
     rm -f markDups.sorted.${RGID}.bai
-    samtools view -b bqsr_markDups.sorted.${RGID}.bam|bamleftalign -f ${genome}|samtools view -b - > left-aligned.bqsr_markDups.sorted.${RGID}.bam
-    samtools index left-aligned.bqsr_markDups.sorted.${RGID}.bam
+    samtools view -b bqsr.markDups.sorted.${RGID}.bam|bamleftalign -f ${genome}|samtools view -b - > left-aligned.bqsr.markDups.sorted.${RGID}.bam
+    samtools index left-aligned.bqsr.markDups.sorted.${RGID}.bam
     exit_left=$?
 fi
 
-if [ $exit_left -eq 0 ] && [ -s left-aligned.bqsr_markDups.sorted.${RGID}.bam ]
+if [ $exit_left -eq 0 ] && [ -s left-aligned.bqsr.markDups.sorted.${RGID}.bam ]
 then
-    rm -f bqsr_markDups.sorted.${RGID}.bam
-    rm -f bqsr_markDups.sorted.${RGID}.bai
+    rm -f markDups.sorted.${RGID}.bam
+    rm -f markDups.sorted.${RGID}.bai
 fi
 
