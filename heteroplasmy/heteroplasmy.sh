@@ -2,7 +2,8 @@
 
 # From recentoy aligned BAM to MT nt counts
 
-scripts="/home/boris/storage/00_papers/paper_mtDNA/heteroplasmy/scripts"
+#scripts="/home/boris/storage/00_papers/paper_mtDNA/heteroplasmy/scripts"
+scripts="/home/boris/bin/dev/sofia/heteroplasmy"
 ref='/storage/shared/references/Homo_sapiens/Ensembl/GRCh37/Sequence/WholeGenomeFasta/genome.fa'
 bam=${1}
 
