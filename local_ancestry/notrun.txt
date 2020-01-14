@@ -1,0 +1,59 @@
+plink2 --bfile ACB_example --chr 20 --make-bed --out ACB_example_chr22 --geno 0.01
+Generates:
+	ACB_example_chr20.bed
+	ACB_example_chr20.bim
+	ACB_example_chr20.fam
+	ACB_example_chr20.log
+
+
+bash 01_shapeit_check.sh 20 ancestry_example/per_chrom/ACB_example
+Generates:
+	ACB_example_chr20.mendel.log
+	ACB_example_chr20.mendel.snp.strand
+	ACB_example_chr20.mendel.snp.strand.exclude
+
+bash 02_shapeit_phasing.sh 20 ancestry_example/per_chrom/ACB_example
+Generates:
+	ACB_example_chr20.haps.gz
+	ACB_example_chr20.sample
+
+bash 03_shapeit2rfmix.sh 20 ancestry_example/per_chrom/ACB_example
+Generates:
+	ACB_example_chr20.alleles
+	ACB_example_chr20.map
+	ACB_example_chr20.snp_locations
+	ACB_example.classes
+	ACB_example.sample
+
+Classes file needs to be fixed accordingly:
+for sample in $(cat ACB_example.sample);do grep -m 1 -w ${sample} ACB_example_chr20.sample|awk '{print $1}'; done > sample.tmp
+awk '{gsub("ACB",0);gsub("CEU",1);gsub("YRI",2);print}' sample.tmp |datamash transpose|awk '{gsub("\t"," ");print}' |python fix_classes.py
+
+
+bash ../04_RFMix.sh 20 ACB_example
+Generates:
+	ACB_example_chr20.rfmix.0.ForwardBackward.txt
+	ACB_example_chr20.rfmix.0.Viterbi.txt
+	ACB_example_chr20.rfmix.1.ForwardBackward.txt
+	ACB_example_chr20.rfmix.1.Viterbi.txt
+	ACB_example_chr20.rfmix.2.ForwardBackward.txt
+	ACB_example_chr20.rfmix.2.Viterbi.txt
+	ACB_example_chr20.rfmix.allelesRephased0.txt
+	ACB_example_chr20.rfmix.allelesRephased1.txt
+	ACB_example_chr20.rfmix.allelesRephased2.txt
+	ACB_example_chr20.rfmix.log.txt
+
+in /home/boris/storage/00_papers/local_ancestry_pipeline/RFMix_v1.5.4/mydata
+run bash ../../05_collapse.sh 20 ACB_example
+it needs:
+	ACB_example_chr20.alleles
+	ACB_example_chr20.map
+	ACB_example.sample
+	centromeres_hg19.bed
+generates:
+	HG02481_A.bed
+	HG02481_B.bed
+
+To generate plot:
+
+IND='HG02481';python ../../ancestry_pipeline/plot_karyogram.py --bed_a ${IND}_A.bed --bed_b ${IND}_B.bed  --ind ${IND} --out ${IND}.png
