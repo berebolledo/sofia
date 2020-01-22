@@ -34,7 +34,7 @@ rm(data_strains)
 
 enzymes <- read.table("enzymes_corrected.txt", sep="\t", header=T, stringsAsFactors=F)
 enzymes <- enzymes[enzymes$strain==strains$strain,]
-ys <- as.matrix(enzymes[,2:17])
+ys <- as.matrix(enzymes[,2:ncol(enzymes)])
 ys <- t(ys)
 colnames(ys) <- strains$strain
 xs <- as.matrix(geno_strains)
@@ -43,6 +43,6 @@ K <- emma.kinship(xs)
 rs <- emma.ML.LRT(ys,xs,K)
 
 pvalues <- rs$ps
-colnames(pvalues) <- colnames(enzymes[2:17])
+colnames(pvalues) <- colnames(enzymes[2:ncol(enzymes)])
 
 write.table(pvalues, "pvalues_new.txt",sep="\t",quote=F,row.names=F)
