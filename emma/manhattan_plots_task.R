@@ -4,6 +4,7 @@ library(qqman)
 library(tidyr)
 library(calibrate)
 ################################################################################
+
 myManhattan <- function (x, chr = "CHR", bp = "BP", p = "P", snp = "SNP", col = c("gray10", 
                                                                                   "gray60"), chrlabs = NULL, suggestiveline = -log10(1e-05), 
                          genomewideline = -log10(5e-08), highlight = NULL, logp = TRUE, 
@@ -154,7 +155,7 @@ data <- cbind(annotations[,c("CHROMOSOME", "START", "Symbol")], pvalues)
 data <-  cbind(data, unite(data[,1:3], "SNP", sep="_"))
 data$CHROMOSOME <- as.numeric(gsub('X', 20, data$CHROMOSOME))
 rm(pvalues)
-
+gc()
 
 args <- commandArgs(trailingOnly=TRUE)
 enz <- args[1]
@@ -174,15 +175,14 @@ highlight <- highlight[!duplicated(highlight$gene),]
 yMax <- round(max(-log10(tmp[[enz]]))) + 1
 col1 <- "steelblue4"
 col2 <- "steelblue1"
-
+tmp_data <- data[-log10(data[[enz]]) > 1 , c("CHROMOSOME", "START", "SNP", enz)]
 
 png(paste("2020/", enz,'.plot.png',sep=''),width=6.5,height=6, units='in',res=300)
-myManhattan(data, chr="CHROMOSOME", bp="START", snp="SNP", p=enz, 
+myManhattan(tmp_data, chr="CHROMOSOME", bp="START", snp="SNP", p=enz, 
           chrlabs=c(1:19,'X'),  suggestiveline = -log10(4.1e-06),
-          genomewideline = -log10(1.28e-08), ylim=c(0,yMax),
+          genomewideline = -log10(1.28e-08), ylim=c(1,yMax),
           col=c(myColor(col1), myColor(col2)),
-          highlight=highlight$SNP, main=enz, cex.axis=0.4,
-          annotatePval = 4.1e-06, annotateTop = TRUE )
+          highlight=highlight$SNP, main=enz, cex.axis=0.6)
 dev.off()
 
 write.table(highlight, paste("2020/",enz,'.highlight.txt',sep=''), sep='\t',
