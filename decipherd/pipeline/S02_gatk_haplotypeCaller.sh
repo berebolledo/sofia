@@ -5,18 +5,20 @@
 #$ -m beas
 #$ -o /hpcudd/home/boris/storage/data/logs
 #$ -e /hpcudd/home/boris/storage/data/logs
-
-source $HOME/.bashrc
+#$ -pe smp 8
 
 set -e
 set -u
 set -o pipefail
 
+source ${HOME}/.bashrc
+source ${HOME}/.profile
 
-if [ $HOSTNAME == 'sofia.udd.cl' ] || [[ $HOSTNAME == compute-1-*.local ]]
+if [ $HOSTNAME == 'sofia.udd.cl' ] || [[ $HOSTNAME == compute*-1-*.local ]]
 then
     genomes="/hpcudd/ICIM/shared/genomes"
     bundle="/hpcudd/ICIM/shared/gatk-bundle"
+    export PATH="/hpcudd/home/boris/miniconda3/bin:$PATH"
 elif [ $HOSTNAME == 'mendel' ]
 then
     genomes="/storage/shared/references"
